@@ -26,6 +26,7 @@
 - [x] Verify provider can connect to CROO WebSocket with the current key.
 - [x] Create local git commits with noreply-style identity.
 - [x] Create public GitHub repository and push code.
+- [x] Add initial CROO WebSocket connection retry for provider resilience.
 
 ## Next
 

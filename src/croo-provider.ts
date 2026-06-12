@@ -10,6 +10,8 @@ export interface ProviderConfig {
   apiUrl: string;
   wsUrl: string;
   baseRpcUrl?: string;
+  connectRetryMs?: number;
+  connectMaxAttempts?: number;
 }
 
 export interface ProviderRuntime {
@@ -38,7 +40,11 @@ export async function startCrooProvider(config: ProviderConfig, logger: Console 
     config.apiKey,
   );
 
-  const stream = await client.connectWebSocket();
+  const stream = await connectWebSocketWithRetry(client, {
+    logger: redactingLogger,
+    retryMs: config.connectRetryMs ?? 5_000,
+    maxAttempts: config.connectMaxAttempts ?? 0,
+  });
   redactingLogger.info("[croo] provider websocket connected");
 
   await reconcileOpenWork(client, config.baseRpcUrl, redactingLogger);
@@ -64,6 +70,36 @@ export async function startCrooProvider(config: ProviderConfig, logger: Console 
       stream.close();
     },
   };
+}
+
+async function connectWebSocketWithRetry(
+  client: Pick<AgentClient, "connectWebSocket">,
+  options: { logger: Console; retryMs: number; maxAttempts: number },
+) {
+  let attempt = 0;
+  while (true) {
+    attempt += 1;
+    try {
+      return await client.connectWebSocket();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      if (options.maxAttempts > 0 && attempt >= options.maxAttempts) {
+        options.logger.error("[croo] websocket connection failed permanently", { attempt, error: message });
+        throw error;
+      }
+
+      options.logger.warn("[croo] websocket connection failed; retrying", {
+        attempt,
+        retryMs: options.retryMs,
+        error: message,
+      });
+      await delay(options.retryMs);
+    }
+  }
+}
+
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export async function reconcileOpenWork(client: CrooClientLike, baseRpcUrl: string | undefined, logger: Console): Promise<void> {
@@ -176,6 +212,8 @@ export function providerConfigFromEnv(env: NodeJS.ProcessEnv): ProviderConfig {
     apiUrl,
     wsUrl,
     ...(env.BASE_RPC_URL ? { baseRpcUrl: env.BASE_RPC_URL } : {}),
+    ...(env.CROO_CONNECT_RETRY_MS ? { connectRetryMs: Number(env.CROO_CONNECT_RETRY_MS) } : {}),
+    ...(env.CROO_CONNECT_MAX_ATTEMPTS ? { connectMaxAttempts: Number(env.CROO_CONNECT_MAX_ATTEMPTS) } : {}),
   };
 }
 

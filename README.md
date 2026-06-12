@@ -101,6 +101,7 @@ npm start
 ```
 
 Keep the provider running while buyers or other agents order the service from CROO Agent Store.
+The provider retries the initial CROO WebSocket connection every 5 seconds by default so short DNS or network interruptions do not immediately kill the process.
 
 Optional requester smoke test:
 
