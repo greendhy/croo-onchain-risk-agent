@@ -1,6 +1,7 @@
 import { AgentClient, DeliverableType, EventType } from "@croo-network/sdk";
 import { generateRiskReport } from "./report.js";
 import { parseRequirements } from "./requirements.js";
+import { createRedactingLogger } from "./redact.js";
 import type { ReportRequest, RiskReport } from "./types.js";
 import type { AcceptNegotiationResult, DeliverOrderRequest, DeliverOrderResult, ListOptions, Negotiation, Order } from "@croo-network/sdk";
 
@@ -26,23 +27,24 @@ export interface CrooClientLike {
 }
 
 export async function startCrooProvider(config: ProviderConfig, logger: Console = console): Promise<ProviderRuntime> {
+  const redactingLogger = createRedactingLogger(logger);
   const client = new AgentClient(
     {
       baseURL: config.apiUrl,
       wsURL: config.wsUrl,
       ...(config.baseRpcUrl ? { rpcURL: config.baseRpcUrl } : {}),
-      logger,
+      logger: redactingLogger,
     },
     config.apiKey,
   );
 
   const stream = await client.connectWebSocket();
-  logger.info("[croo] provider websocket connected");
+  redactingLogger.info("[croo] provider websocket connected");
 
-  await reconcileOpenWork(client, config.baseRpcUrl, logger);
+  await reconcileOpenWork(client, config.baseRpcUrl, redactingLogger);
 
   stream.onAny((event) => {
-    logger.info("[croo] event", event.type, {
+    redactingLogger.info("[croo] event", event.type, {
       negotiationId: event.negotiation_id,
       orderId: event.order_id,
       serviceId: event.service_id,
@@ -50,11 +52,11 @@ export async function startCrooProvider(config: ProviderConfig, logger: Console 
   });
 
   stream.on(EventType.NegotiationCreated, (event) => {
-    void handleNegotiationCreated(client, event.negotiation_id, logger);
+    void handleNegotiationCreated(client, event.negotiation_id, redactingLogger);
   });
 
   stream.on(EventType.OrderPaid, (event) => {
-    void handleOrderPaid(client, event.order_id, config.baseRpcUrl, logger);
+    void handleOrderPaid(client, event.order_id, config.baseRpcUrl, redactingLogger);
   });
 
   return {

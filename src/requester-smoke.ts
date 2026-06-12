@@ -1,5 +1,6 @@
 import "dotenv/config";
 import { AgentClient, EventType } from "@croo-network/sdk";
+import { createRedactingLogger } from "./redact.js";
 
 const apiKey = process.env.CROO_REQUESTER_API_KEY || process.env.CROO_API_KEY || process.env.CROO_SDK_KEY;
 const apiUrl = process.env.CROO_API_URL || "https://api.croo.network";
@@ -14,7 +15,7 @@ const client = new AgentClient({
   baseURL: apiUrl,
   wsURL: wsUrl,
   ...(process.env.BASE_RPC_URL ? { rpcURL: process.env.BASE_RPC_URL } : {}),
-  logger: console,
+  logger: createRedactingLogger(console),
 }, apiKey);
 
 const stream = await client.connectWebSocket();

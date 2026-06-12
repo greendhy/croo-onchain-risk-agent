@@ -21,12 +21,14 @@
 - [x] Add GitHub release checklist.
 - [x] Add live test runbook and sample report examples.
 - [x] Record current CROO draft/live status in `LIVE_STATUS.md`.
+- [x] Add logger redaction for CROO SDK keys.
+- [x] Rotate exposed CROO SDK key and store the current key only in ignored local `.env`.
+- [x] Verify provider can connect to CROO WebSocket with the current key.
+- [x] Create local git commits with noreply-style identity.
 
 ## Next
 
-- [ ] Confirm whether to rotate the exposed CROO SDK key.
-- [ ] Put current or rotated CROO SDK key in local `.env` without exposing it in public files.
-- [ ] Start live provider with `npm start`.
+- [ ] Keep live provider running with `npm start` during real buyer tests.
 - [ ] Create or use a requester/buyer path to place a real `0.10 USDC` order.
 - [ ] User signs/funds any wallet actions required by CROO.
 - [ ] Confirm live order accepted, paid, delivered, and completed.

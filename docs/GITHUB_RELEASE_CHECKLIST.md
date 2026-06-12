@@ -9,8 +9,8 @@ Before creating the public repository:
 - [ ] Run `npm run mock`.
 - [ ] Review `README.md` for setup, SDK methods, and integration notes.
 - [ ] Review `LICENSE` for MIT license.
-- [ ] Configure local git author identity with the user's preferred public GitHub email or GitHub noreply email.
-- [ ] Create the initial local commit.
+- [x] Configure local git author identity with a GitHub noreply-style email.
+- [x] Create the initial local commit.
 - [ ] Add the public GitHub URL to `docs/DORAHACKS_SUBMISSION_DRAFT.md`.
 - [ ] Add the demo video URL after recording.
 - [ ] Tag the submission version after the live paid order test.
