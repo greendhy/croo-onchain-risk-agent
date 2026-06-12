@@ -12,7 +12,9 @@ Last checked: 2026-06-12
 - Service ID: `53239e77-4aa9-4a7c-889a-2cfee4de37e0`
 - Price: `0.10 USDC`
 - SLA: `30 minutes`
-- Public Agent Store URL: pending; `Open Agent Store` did not navigate to a separate listing URL during verification.
+- Public Agent Store URL: `https://agent.croo.network/agents/a09fbd47-7378-4ceb-82fb-a41c34973932`
+- Public listing verified: service visible with `Try this`, price `0.10`, total order estimate about `$0.11`.
+- Top-up flow verified up to the non-signing step: Navigator Wallet accepts Base USDC only; connected wallet showed available USDC; user must confirm any transfer/signature.
 
 ## SDK Key Status
 

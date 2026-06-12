@@ -35,6 +35,7 @@ Results:
 - Provider startup now retries the initial CROO WebSocket connection so transient DNS or network errors do not immediately stop the service.
 - Live provider run: CROO configuration page showed `ONLINE` while the provider process was running.
 - GitHub repository published at `https://github.com/greendhy/croo-onchain-risk-agent` and README verified in browser.
+- CROO public listing verified at `https://agent.croo.network/agents/a09fbd47-7378-4ceb-82fb-a41c34973932`; service and top-up flow were inspected without signing or paying.
 - `npm audit --omit=dev`: 3 moderate vulnerabilities, all through `@croo-network/sdk -> ethers -> ws`. No fix currently available from npm audit.
 
 Local mock output summary:

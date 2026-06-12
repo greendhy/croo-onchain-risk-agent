@@ -27,10 +27,12 @@
 - [x] Create local git commits with noreply-style identity.
 - [x] Create public GitHub repository and push code.
 - [x] Add initial CROO WebSocket connection retry for provider resilience.
+- [x] Verify public CROO Agent Store listing URL.
 
 ## Next
 
 - [ ] Keep live provider running with `npm start` during real buyer tests.
+- [ ] User tops up CROO Navigator Wallet with Base USDC for a real order.
 - [ ] Create or use a requester/buyer path to place a real `0.10 USDC` order.
 - [ ] User signs/funds any wallet actions required by CROO.
 - [ ] Confirm live order accepted, paid, delivered, and completed.

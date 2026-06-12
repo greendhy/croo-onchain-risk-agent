@@ -31,7 +31,9 @@ Pending recording.
 
 ## CROO Agent Store
 
-CROO configuration page shows the agent as `ONLINE` while the provider is running. A separate public listing URL is still pending because the Agent Store button did not navigate during verification.
+https://agent.croo.network/agents/a09fbd47-7378-4ceb-82fb-a41c34973932
+
+CROO configuration page shows the agent as `ONLINE` while the provider is running. The public listing shows the `Wallet & Project Risk Report` service at `0.10 USDC`.
 
 ## SDK Methods Used
 

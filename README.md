@@ -10,6 +10,7 @@ The service is listed in CROO Agent Store as:
 - SLA: `30 minutes`
 - CROO agent ID: `a09fbd47-7378-4ceb-82fb-a41c34973932`
 - CROO service ID: `53239e77-4aa9-4a7c-889a-2cfee4de37e0`
+- CROO listing: `https://agent.croo.network/agents/a09fbd47-7378-4ceb-82fb-a41c34973932`
 
 ## What It Does
 
