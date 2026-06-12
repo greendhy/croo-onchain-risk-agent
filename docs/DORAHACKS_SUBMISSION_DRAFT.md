@@ -31,7 +31,7 @@ Pending recording.
 
 ## CROO Agent Store
 
-Pending final public listing URL after provider goes live.
+CROO configuration page shows the agent as `ONLINE` while the provider is running. A separate public listing URL is still pending because the Agent Store button did not navigate during verification.
 
 ## SDK Methods Used
 

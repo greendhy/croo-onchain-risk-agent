@@ -5,14 +5,14 @@ Last checked: 2026-06-12
 ## CROO Agent Store
 
 - Configure URL: `https://agent.croo.network/account/agents/a09fbd47-7378-4ceb-82fb-a41c34973932/configure`
-- Agent status shown by CROO: draft after short smoke test
-- CROO page message: profile and service are configured; the provider must stay running to go live.
+- Agent status shown by CROO: ONLINE while the local provider is running.
+- CROO page message: profile and service are configured; source is auto-detected as SDK.
 - Agent name: `Onchain Risk Intel Agent`
 - Service name: `Wallet & Project Risk Report`
 - Service ID: `53239e77-4aa9-4a7c-889a-2cfee4de37e0`
 - Price: `0.10 USDC`
 - SLA: `30 minutes`
-- Public Agent Store URL: pending; `Open Agent Store` did not navigate while the agent was still draft.
+- Public Agent Store URL: pending; `Open Agent Store` did not navigate to a separate listing URL during verification.
 
 ## SDK Key Status
 
@@ -29,6 +29,7 @@ Last checked: 2026-06-12
 - Unit and provider lifecycle tests pass.
 - Mock deliverable generation works.
 - Provider smoke test connected to CROO WebSocket, listed 0 pending negotiations, and listed 0 paid orders.
+- CROO configuration page showed `ONLINE` after the provider was started and kept running.
 - Public GitHub repository: `https://github.com/greendhy/croo-onchain-risk-agent`
 - Local git repository initialized.
 - Initial local commit created with local noreply identity.

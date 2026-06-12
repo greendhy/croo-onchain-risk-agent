@@ -33,6 +33,7 @@ Results:
 - Provider and requester loggers redact CROO SDK keys before writing SDK logs.
 - Provider smoke test: passed after key rotation and startup script fix. WebSocket connected, pending negotiations count was 0, paid orders count was 0. Smoke provider process was stopped after verification.
 - Provider startup now retries the initial CROO WebSocket connection so transient DNS or network errors do not immediately stop the service.
+- Live provider run: CROO configuration page showed `ONLINE` while the provider process was running.
 - GitHub repository published at `https://github.com/greendhy/croo-onchain-risk-agent` and README verified in browser.
 - `npm audit --omit=dev`: 3 moderate vulnerabilities, all through `@croo-network/sdk -> ethers -> ws`. No fix currently available from npm audit.
 
