@@ -4,6 +4,9 @@ import type { BaseSignals, EvidenceLink, FlagSeverity, ReportRequest, RiskFlag, 
 const AGENT_VERSION = "0.1.0";
 const EVM_ADDRESS_RE = /^0x[a-fA-F0-9]{40}$/;
 const EVM_TX_RE = /^0x[a-fA-F0-9]{64}$/;
+const EVM_ADDRESS_IN_TEXT_RE = /\b0x[a-fA-F0-9]{40}\b/;
+const EVM_TX_IN_TEXT_RE = /\b0x[a-fA-F0-9]{64}\b/;
+const URL_IN_TEXT_RE = /\bhttps?:\/\/[^\s<>"'`]+/i;
 const SOLANA_ADDRESS_RE = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
 
 export interface ReportOptions {
@@ -12,12 +15,17 @@ export interface ReportOptions {
 }
 
 export async function generateRiskReport(request: ReportRequest, options: ReportOptions = {}): Promise<RiskReport> {
-  const normalizedTarget = request.target.trim();
+  const extracted = extractAnalyzableTarget(request.target);
+  const normalizedTarget = extracted.target;
   const targetType = classifyTarget(normalizedTarget);
-  const chain = normalizeChain(request.chain, targetType);
+  const chain = normalizeChain(request.chain ?? extracted.chainHint, targetType);
   const evidenceLinks = buildEvidenceLinks(normalizedTarget, targetType, chain);
   const flags: RiskFlag[] = [];
   let score = 10;
+
+  if (extracted.extractedFromText) {
+    addFlag(flags, "target_extracted_from_text", "info", "Target extracted from buyer text", `The buyer submitted natural language, so the agent extracted ${normalizedTarget} as the analyzable target.`);
+  }
 
   if (targetType === "plain_text") {
     score += addFlag(flags, "target_unstructured", "medium", "Unstructured target", "The target is not an EVM address, transaction hash, Solana address, or URL. Treat this as an initial triage, not a final due-diligence result.");
@@ -75,6 +83,38 @@ export function classifyTarget(target: string): TargetType {
   if (isLikelyUrl(target)) return "project_url";
   if (SOLANA_ADDRESS_RE.test(target)) return "solana_address";
   return "plain_text";
+}
+
+interface ExtractedTarget {
+  target: string;
+  chainHint?: string;
+  extractedFromText: boolean;
+}
+
+export function extractAnalyzableTarget(rawTarget: string): ExtractedTarget {
+  const trimmed = rawTarget.trim();
+  const chainHint = detectChainHint(trimmed);
+
+  if (classifyTarget(trimmed) !== "plain_text") {
+    return { target: trimmed, ...(chainHint ? { chainHint } : {}), extractedFromText: false };
+  }
+
+  const txMatch = trimmed.match(EVM_TX_IN_TEXT_RE);
+  if (txMatch) {
+    return { target: txMatch[0], ...(chainHint ? { chainHint } : {}), extractedFromText: true };
+  }
+
+  const addressMatch = trimmed.match(EVM_ADDRESS_IN_TEXT_RE);
+  if (addressMatch) {
+    return { target: addressMatch[0], ...(chainHint ? { chainHint } : {}), extractedFromText: true };
+  }
+
+  const urlMatch = trimmed.match(URL_IN_TEXT_RE);
+  if (urlMatch) {
+    return { target: trimTrailingPunctuation(urlMatch[0]), ...(chainHint ? { chainHint } : {}), extractedFromText: true };
+  }
+
+  return { target: trimmed, ...(chainHint ? { chainHint } : {}), extractedFromText: false };
 }
 
 export function normalizeChain(chain: string | undefined, targetType: TargetType): string {
@@ -241,8 +281,22 @@ function isLikelyUrl(target: string): boolean {
   return /^(https?:\/\/)?([\w-]+\.)+[\w-]{2,}(\/.*)?$/i.test(target);
 }
 
+function detectChainHint(text: string): string | undefined {
+  if (/\bbase(?:\s+mainnet)?\b/i.test(text)) return "base";
+  if (/\b(?:ethereum|eth mainnet|mainnet)\b/i.test(text)) return "ethereum";
+  if (/\barbitrum\b/i.test(text)) return "arbitrum";
+  if (/\boptimism\b|\bop mainnet\b/i.test(text)) return "optimism";
+  if (/\bpolygon\b|\bmatic\b/i.test(text)) return "polygon";
+  if (/\bsolana\b|\bsol\b/i.test(text)) return "solana";
+  return undefined;
+}
+
 function ensureUrl(target: string): string {
   return /^https?:\/\//i.test(target) ? target : `https://${target}`;
+}
+
+function trimTrailingPunctuation(value: string): string {
+  return value.replace(/[),.;:!?]+$/g, "");
 }
 
 function clamp(value: number, min: number, max: number): number {

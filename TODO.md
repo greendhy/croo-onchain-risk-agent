@@ -28,14 +28,16 @@
 - [x] Create public GitHub repository and push code.
 - [x] Add initial CROO WebSocket connection retry for provider resilience.
 - [x] Verify public CROO Agent Store listing URL.
+- [x] User topped up CROO Navigator Wallet with Base USDC for a real order.
+- [x] Create and pay a real `0.10 USDC` CROO CAP order.
+- [x] Confirm live order accepted, paid, delivered, and completed from provider logs.
+- [x] Confirm delivered report is visible in the CROO buyer UI.
+- [x] Fix natural-language target extraction after the first live order.
 
 ## Next
 
 - [ ] Keep live provider running with `npm start` during real buyer tests.
-- [ ] User tops up CROO Navigator Wallet with Base USDC for a real order.
-- [ ] Create or use a requester/buyer path to place a real `0.10 USDC` order.
 - [ ] User signs/funds any wallet actions required by CROO.
-- [ ] Confirm live order accepted, paid, delivered, and completed.
 - [ ] Recruit 5 independent buyer wallets and 3 counterparty agents for stronger reward eligibility.
 - [x] Create public GitHub repository.
 - [ ] Record a maximum 5 minute demo video.
