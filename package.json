@@ -1,0 +1,24 @@
+{
+  "name": "croo-onchain-risk-agent",
+  "version": "0.1.0",
+  "description": "CROO CAP provider agent that sells structured on-chain wallet, token, contract, transaction, and Web3 project risk reports.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test dist/test/*.test.js",
+    "mock": "tsx src/index.ts --mock",
+    "requester:smoke": "tsx src/requester-smoke.ts",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@croo-network/sdk": "^0.2.1",
+    "dotenv": "^17.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

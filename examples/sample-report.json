@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "2026-06-12",
+  "agent": {
+    "name": "Onchain Risk Intel Agent",
+    "version": "0.1.0"
+  },
+  "generatedAt": "2026-06-12T00:00:00.000Z",
+  "input": {
+    "target": "0x4200000000000000000000000000000000000006",
+    "chain": "base",
+    "focus": "contract safety triage"
+  },
+  "normalizedTarget": "0x4200000000000000000000000000000000000006",
+  "targetType": "evm_address",
+  "chain": "base",
+  "riskScore": 10,
+  "riskLevel": "low",
+  "summary": "LOW risk (10/100) for evm_address on base: 0x4200000000000000000000000000000000000006. Live Base RPC checks completed. No high-confidence danger flag was found from the available automated checks.",
+  "flags": [
+    {
+      "code": "target_is_contract",
+      "severity": "info",
+      "title": "Target is a smart contract",
+      "detail": "Base RPC returned bytecode for this address (2041 bytes) and 0 transactions. Review source verification, deployer, admin roles, and recent calls.",
+      "evidence": [
+        {
+          "label": "base address explorer",
+          "url": "https://basescan.org/address/0x4200000000000000000000000000000000000006",
+          "source": "explorer"
+        }
+      ]
+    }
+  ],
+  "evidenceLinks": [
+    {
+      "label": "base address explorer",
+      "url": "https://basescan.org/address/0x4200000000000000000000000000000000000006",
+      "source": "explorer"
+    }
+  ],
+  "onchainSignals": {
+    "chain": "base",
+    "lookupStatus": "success",
+    "targetType": "address",
+    "isContract": true,
+    "codeSizeBytes": 2041,
+    "balanceEth": "sample-live-value",
+    "transactionCount": 0
+  },
+  "recommendations": [
+    "Open the evidence links and verify the target directly in the relevant explorer.",
+    "Check deployer/funder history, recent counterparties, token approvals, and privileged admin methods before transacting.",
+    "Confirm source-code verification, proxy/admin ownership, pause/upgrade controls, and external call surfaces."
+  ],
+  "limitations": [
+    "This report is a due-diligence aid, not financial, legal, or investment advice.",
+    "Explorer links are evidence pointers; a human should inspect source code, deployer history, holders, liquidity, and recent transactions before relying on the result.",
+    "Live Base RPC checks identify contract code and transaction existence, but they do not prove source-code verification or business legitimacy."
+  ]
+}
