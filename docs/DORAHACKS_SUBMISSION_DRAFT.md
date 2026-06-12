@@ -23,7 +23,7 @@ The report includes a risk score, risk level, summary, evidence links, risk flag
 
 ## GitHub Repository
 
-Pending public repo creation.
+https://github.com/greendhy/croo-onchain-risk-agent
 
 ## Demo Video
 
@@ -49,7 +49,7 @@ Pending final public listing URL after provider goes live.
 
 - CROO Agent Store listing: configured.
 - CAP integration: implemented using CROO Node SDK.
-- Open source: MIT license included; public repository pending.
+- Open source: MIT license included; public repository published.
 - Demo + README: README completed; demo video pending.
 - DoraHacks BUIDL: this draft can be copied into the submission form after live test and repo/video are ready.
 

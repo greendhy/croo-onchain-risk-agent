@@ -11,7 +11,7 @@ Before creating the public repository:
 - [ ] Review `LICENSE` for MIT license.
 - [x] Configure local git author identity with a GitHub noreply-style email.
 - [x] Create the initial local commit.
-- [ ] Add the public GitHub URL to `docs/DORAHACKS_SUBMISSION_DRAFT.md`.
+- [x] Add the public GitHub URL to `docs/DORAHACKS_SUBMISSION_DRAFT.md`.
 - [ ] Add the demo video URL after recording.
 - [ ] Tag the submission version after the live paid order test.
 

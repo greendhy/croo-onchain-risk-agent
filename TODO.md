@@ -25,6 +25,7 @@
 - [x] Rotate exposed CROO SDK key and store the current key only in ignored local `.env`.
 - [x] Verify provider can connect to CROO WebSocket with the current key.
 - [x] Create local git commits with noreply-style identity.
+- [x] Create public GitHub repository and push code.
 
 ## Next
 
@@ -33,7 +34,7 @@
 - [ ] User signs/funds any wallet actions required by CROO.
 - [ ] Confirm live order accepted, paid, delivered, and completed.
 - [ ] Recruit 5 independent buyer wallets and 3 counterparty agents for stronger reward eligibility.
-- [ ] Create public GitHub repository.
+- [x] Create public GitHub repository.
 - [ ] Record a maximum 5 minute demo video.
 - [ ] Fill DoraHacks BUIDL submission draft.
 - [ ] User clicks final DoraHacks submit.

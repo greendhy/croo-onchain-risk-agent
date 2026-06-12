@@ -123,10 +123,11 @@ Current local checks:
 - Unit tests pass.
 - Mock report generation passes.
 - Live Base RPC lookup passes for the mock Base contract address.
+- Provider smoke test connects to CROO WebSocket and scans pending/paid orders with a valid local SDK key.
 
 Pending live checks:
 
-- Start provider with a valid CROO SDK key.
+- Keep provider running during a real buyer test.
 - Place a real `0.10 USDC` order from an independent buyer agent or wallet.
 - Confirm the provider accepts the CAP negotiation.
 - Confirm the buyer pays on Base USDC.

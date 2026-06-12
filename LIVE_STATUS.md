@@ -29,7 +29,7 @@ Last checked: 2026-06-12
 - Unit and provider lifecycle tests pass.
 - Mock deliverable generation works.
 - Provider smoke test connected to CROO WebSocket, listed 0 pending negotiations, and listed 0 paid orders.
-- Public GitHub repository not created yet.
+- Public GitHub repository: `https://github.com/greendhy/croo-onchain-risk-agent`
 - Local git repository initialized.
 - Initial local commit created with local noreply identity.
 
